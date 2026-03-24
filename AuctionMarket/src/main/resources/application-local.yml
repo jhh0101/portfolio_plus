@@ -1,9 +1,10 @@
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: ${ORACLE_URL}
-    username: ${ORACLE_USERNAME}
-    password: ${ORACLE_PASSWORD}
+    # PostgreSQL 로컬 설정
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/auction_db
+    username: auction_user
+    password: auction_password
 
   data:
     redis:
@@ -11,16 +12,26 @@ spring:
       port: 6379
       password: 1234
 
+  jpa:
+    hibernate:
+      ddl-auto: create # 초기 스키마 생성을 위해 우선 create로 설정 (이후 validate/update로 변경)
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# AWS S3 (MinIO 연결 설정)
 cloud:
   aws:
     s3:
-      bucket: ${ORACLE_BUCKET}
-      endpoint: ${ORACLE_ENDPOINT}
+      bucket: auction-local-bucket
+      endpoint: http://localhost:9000
     region:
-      static: ${ORACLE_REGION}
+      static: ap-northeast-2
     credentials:
-      access-key: ${ORACLE_ACCESS_KEY_ID}
-      secret-key: ${ORACLE_SECRET_ACCESS_KEY}
+      access-key: minioadmin
+      secret-key: minioadmin123
 
 jwt:
   secret: MySecureJwtSecretKey1234567890ABCDEFGHIJKLMNOP
