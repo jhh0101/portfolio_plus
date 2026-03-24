@@ -1,0 +1,47 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: AuctionMarket
+  profiles:
+    active: local
+
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # 가상 스레드(성능 up / synchronized, ThreadLocal 사용 시 문제 발생)
+  threads:
+    virtual:
+      enabled: true
+
+# JWT
+jwt:
+  access-token-expiration: 900000
+  refresh-token-expiration: 604800000
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+payment:
+  toss:
+    secret_key: ${TOSS_SECRET_KEY}
+
+groq:
+  api-key: ${GROQ_API_KEY}
+  url: ${GROQ_API_URL}
+
+pinecone:
+  api-key: ${PINECONE_API_KEY}
+  url: ${PINECONE_API_URL}
+
+langfuse:
+  public-key: ${LANGFUSE_PUBLIC_KEY}
+  secret-key: ${LANGFUSE_SECRET_KEY}
+  url: ${LANGFUSE_BASE_URL}

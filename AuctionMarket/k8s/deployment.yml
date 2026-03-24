@@ -1,0 +1,74 @@
+# [Redis] Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-app
+  template:
+    metadata:
+      labels:
+        app: redis-app
+    spec:
+      containers:
+        - name: redis
+          image: redis:alpine
+          command: [ "redis-server", "--requirepass", "1234", "--appendonly", "yes" ]
+          ports:
+            - containerPort: 6379
+
+---
+# -------------------------
+# Backend Deployment
+# -------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+        - name: backend
+          # [수정 필요] 백엔드 전용 이미지 태그가 맞는지 확인하세요!
+          image: jhh0101/portfolio:v72
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888
+          envFrom:
+            - secretRef:
+                 name: backend-secrets
+
+#---
+## -------------------------
+## Frontend Deployment
+## -------------------------
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: frontend-deployment
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: frontend-app
+#  template:
+#    metadata:
+#      labels:
+#        app: frontend-app
+#    spec:
+#      containers:
+#        - name: frontend
+#          image: jhh0101/portfolio-front:v72
+#          ports:
+#            - containerPort: 80

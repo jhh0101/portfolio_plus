@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: ${ORACLE_URL}
+    username: ${ORACLE_USERNAME}
+    password: ${ORACLE_PASSWORD}
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 1234
+
+cloud:
+  aws:
+    s3:
+      bucket: ${ORACLE_BUCKET}
+      endpoint: ${ORACLE_ENDPOINT}
+    region:
+      static: ${ORACLE_REGION}
+    credentials:
+      access-key: ${ORACLE_ACCESS_KEY_ID}
+      secret-key: ${ORACLE_SECRET_ACCESS_KEY}
+
+jwt:
+  secret: MySecureJwtSecretKey1234567890ABCDEFGHIJKLMNOP

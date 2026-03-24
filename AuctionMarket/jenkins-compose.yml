@@ -1,0 +1,19 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: jenkins_server
+    # [중요 1] 권한 문제 해결을 위해 root 유저로 실행
+    user: root
+    ports:
+      - "9090:8080"    # 호스트 9090 -> 컨테이너 8080 (스프링과 충돌 방지)
+      - "50000:50000"  # 에이전트 통신용 포트
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # [중요 2] 젠킨스가 호스트(내 컴퓨터)의 도커를 조종할 수 있게 연결
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Seoul  # 한국 시간 설정
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
