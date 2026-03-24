@@ -1,0 +1,49 @@
+services:
+  # 1. PostgreSQL (기존 Oracle/MySQL 대체)
+  postgres:
+    image: postgres:15-alpine
+    container_name: auction-postgres-local
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: auction_user
+      POSTGRES_PASSWORD: auction_password
+      POSTGRES_DB: auction_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - auction-local-net
+
+  # 2. Redis (캐싱 및 경매 마감 스케줄러용)
+  redis:
+    image: redis:alpine
+    container_name: auction-redis-local
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass 1234
+    networks:
+      - auction-local-net
+
+  # 3. MinIO (기존 Oracle S3 대체용 로컬 스토리지)
+  minio:
+    image: minio/minio
+    container_name: auction-minio-local
+    ports:
+      - "9000:9000" # API 포트
+      - "9001:9001" # 웹 콘솔 포트
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - auction-local-net
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  auction-local-net:
+    driver: bridge
