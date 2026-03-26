@@ -1,6 +1,6 @@
 package org.example.auctioncommon.domain.user.service
 
-import org.example.auctioncommon.domain.auth.dto.SecurityUser
+import org.example.auctioncommon.auth.dto.SecurityUser
 import org.example.auctioncommon.domain.bid.repository.BidRepository
 import org.example.auctioncommon.domain.product.repository.ProductRepository
 import org.example.auctioncommon.domain.user.dto.*
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(
     private val bidRepository: BidRepository,
     private val productRepository: ProductRepository,
-//    private val refreshTokenService: RefreshTokenService,
     private val passwordEncoder: PasswordEncoder,
     private val userProcessor: UserProcessor,
     private val userRepository: UserRepository

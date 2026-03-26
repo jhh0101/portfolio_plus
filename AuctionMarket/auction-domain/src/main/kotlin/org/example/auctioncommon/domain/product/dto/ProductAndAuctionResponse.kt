@@ -10,7 +10,7 @@ data class ProductAndAuctionResponse(
     private val auctionResponse: AuctionResponse? = null
 )
 
-fun Product.toDto(): ProductAndAuctionResponse {
+fun Product.toProductAndAuctionDto(): ProductAndAuctionResponse {
     return ProductAndAuctionResponse(
         productResponse = this.toProductResponse(),
         auctionResponse = this.auction.toAuctionResponse()

@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import org.example.auctioncommon.domain.auction.entity.Auction
-import org.example.auctioncommon.domain.product.entity.ProductStatus
 import org.example.auctioncommon.domain.user.entity.User
 import org.example.auctioncommon.global.base.BaseCreatedAt
 
@@ -36,12 +35,12 @@ class Order(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
-    val buyer: User,
+    val buyer: User?,
 
     @Column(name = "final_price")
     var finalPrice: Long? = 0L,
 
-) : BaseCreatedAt() {
+    ) : BaseCreatedAt() {
     val seller: User?
         get() = auction.product?.seller
 

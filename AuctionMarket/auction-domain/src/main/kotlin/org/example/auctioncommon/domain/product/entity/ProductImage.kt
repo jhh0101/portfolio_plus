@@ -27,10 +27,10 @@ class ProductImage(
     val product: Product? = null,
 
     @Column(name = "image_url")
-    var imageUrl: String? = null,
+    var imageUrl: String,
 
     @Column(name = "image_order")
-    var imageOrder: Int? = null
+    var imageOrder: Int
 ) {
 
     fun updateOrder(newOrder: Int) {

@@ -37,9 +37,7 @@ enum class GlobalErrorCode(
     INVALID_IMAGE_FORMAT("IMAGE004", "지원하지 않는 이미지 형식입니다"),
 
     // Product
-    PRODUCT_NOT_FOUND("PRODUCT001", "상품을 찾을 수 없습니다"),
-    CANNOT_MODIFY_AFTER_BID("PRODUCT002", "입찰한 상품은 수정할 수 없습니다"),
-    CANNOT_DELETE_AFTER_BID("PRODUCT003", "입찰한 상품은 삭제할 수 없습니다"),
+
 
     // Auction
 
@@ -48,7 +46,6 @@ enum class GlobalErrorCode(
 
 
     // Orders
-    ORDER_NOT_FOUND("ORDER001", "주문 내역을 찾을 수 없습니다"),
 
     // Rating
     RATING_NOT_FOUND("RATING001", "평가를 찾을 수 없습니다"),

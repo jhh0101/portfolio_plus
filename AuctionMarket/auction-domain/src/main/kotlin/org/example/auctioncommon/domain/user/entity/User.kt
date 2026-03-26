@@ -66,7 +66,7 @@ class User(
         this.point -= point
     }
 
-    fun addPoint(point: Long) {
+    fun addPoint(point: Long?) {
         this.point += point
     }
 
