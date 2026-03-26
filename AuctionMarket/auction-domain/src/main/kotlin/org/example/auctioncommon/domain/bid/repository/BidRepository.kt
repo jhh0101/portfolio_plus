@@ -21,7 +21,7 @@ interface BidRepository : JpaRepository<Bid, Long> {
     fun findAllByStatusAndAuctionOrderByBidPriceDesc(
         status: BidStatus,
         auction: Auction
-    ): kotlin.collections.List<Bid>
+    ): List<Bid>
 
     @Query(
         ("SELECT b " +
@@ -76,9 +76,7 @@ interface BidRepository : JpaRepository<Bid, Long> {
         countQuery = "SELECT COUNT(*) FROM Bid b WHERE b.auction.auctionId = :auctionId AND b.status = 'ACTIVE'"
     )
     fun findAllByAuction_AuctionId(
-        @Param("auctionId") auctionId: Long,
-        pageable: Pageable
-    ): Page<BidInfo>
+        @Param("auctionId") auctionId: Long, pageable: Pageable): Page<BidInfo>
 
     @Query(
         value = ("SELECT b.bid_id AS bidId, b.auction_id AS auctionId, u.nickname AS nickname, b.bid_price AS bidPrice, b.bid_time AS bidTime, b.status AS status " +

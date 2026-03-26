@@ -1,5 +1,6 @@
 package org.example.auctioncommon.global.error
 
+import org.example.auctioncommon.global.ErrorCode
 import org.example.auctioncommon.global.response.ApiResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

@@ -1,16 +1,11 @@
 package org.example.auctioncommon.domain.user.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import org.example.auctioncommon.domain.bid.error.BidErrorCode
+import org.example.auctioncommon.domain.seller.entity.Seller
+import org.example.auctioncommon.domain.user.dto.UserUpdateCommand
 import org.example.auctioncommon.global.base.Base
 import org.example.auctioncommon.global.error.CustomException
-import org.example.auctioncommon.global.error.ErrorCode
 
 @Entity
 @Table(name = "users")
@@ -18,7 +13,7 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    val userId: Long? = null,
+    var userId: Long? = null,
 
     @Column(name = "email", unique = true, nullable = false)
     var email: String,
@@ -43,10 +38,10 @@ class User(
     var role: Role,
 
     @Column(name = "point", nullable = false)
-    var point: Long = 0L,
+    var point: Long,
 
     @Column(name = "avg_rating", nullable = false)
-    var avgRating: Double = 0.0,
+    var avgRating: Double,
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -58,12 +53,15 @@ class User(
     @Column(name = "suspension_reason")
     var suspensionReason: String? = null,
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    val seller: Seller? = null
+
 ) : Base() {
 
 
     fun subPoint(point: Long) {
         if (this.point < point) {
-            throw CustomException(ErrorCode.NOT_ENOUGH_POINTS)
+            throw CustomException(BidErrorCode.NOT_ENOUGH_POINTS)
         }
         this.point -= point
     }
@@ -94,9 +92,11 @@ class User(
         this.role = Role.USER
     }
 
-    fun updateUser(phone: String, nickname: String) {
-        this.phone = phone
-        this.nickname = nickname
+    fun updateUser(command: UserUpdateCommand) {
+        this.phone = command.phone
+        this.nickname = command.nickname
+        this.baseAddress = command.baseAddress
+        this.detailAddress = command.detailAddress
     }
 
     fun updatePassword(newPassword: String) {

@@ -7,15 +7,6 @@ spring:
   profiles:
     active: local
 
-  # JPA
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
   # 가상 스레드(성능 up / synchronized, ThreadLocal 사용 시 문제 발생)
   threads:
     virtual:

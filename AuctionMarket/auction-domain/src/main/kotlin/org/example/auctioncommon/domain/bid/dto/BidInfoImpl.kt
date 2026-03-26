@@ -5,29 +5,23 @@ import org.example.auctioncommon.domain.bid.entity.BidStatus
 import java.time.LocalDateTime
 
 class BidInfoImpl(
-    val bidId: Long? = null,
-    val auctionId: Long? = null,
-    val nickname: String? = null,
-    val bidPrice: Long? = null,
-    val status: BidStatus? = null,
+    val bidId: Long,
+    val auctionId: Long,
+    val nickname: String,
+    val bidPrice: Long,
+    val status: BidStatus,
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @field:JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     val bidTime: LocalDateTime? = null
-) {
+)
 
-
-
-
-    companion object {
-        fun from(response: BidInfo): BidInfoImpl {
-            return BidInfoImpl(
-                bidId = response.bidId,
-                auctionId = response.auctionId,
-                nickname = response.nickname,
-                bidPrice = response.bidPrice,
-                status = response.status?.let { BidStatus.valueOf(it) },
-                bidTime = response.bidTime
-            )
-        }
-    }
+fun BidInfo.toDto(): BidInfoImpl {
+    return BidInfoImpl(
+        bidId = this.bidId,
+        auctionId = this.auctionId,
+        nickname = this.nickname,
+        bidPrice = this.bidPrice,
+        status = this.status,
+        bidTime = this.bidTime
+    )
 }

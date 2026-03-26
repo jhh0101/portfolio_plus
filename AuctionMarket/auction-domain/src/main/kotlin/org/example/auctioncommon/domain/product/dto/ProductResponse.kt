@@ -13,8 +13,8 @@ data class ProductResponse(
     val productStatus: ProductStatus,
     val mainImageUrl: String,
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    val createdAt: LocalDateTime
+    @field:JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    val createdAt: LocalDateTime? = null
 )
 
 fun Product.toProductResponse(): ProductResponse {
@@ -30,6 +30,6 @@ fun Product.toProductResponse(): ProductResponse {
         title = this.title,
         productStatus = this.productStatus,
         mainImageUrl = mainUrl,
-        createdAt = this.createdAt ?: LocalDateTime.now()
+        createdAt = this.createdAt
     )
 }

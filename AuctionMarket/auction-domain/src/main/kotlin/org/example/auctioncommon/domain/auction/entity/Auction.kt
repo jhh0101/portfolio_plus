@@ -13,10 +13,11 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import org.example.auctioncommon.domain.auction.error.AuctionErrorCode
 import org.example.auctioncommon.domain.bid.entity.Bid
 import org.example.auctioncommon.domain.product.entity.Product
 import org.example.auctioncommon.global.error.CustomException
-import org.example.auctioncommon.global.error.ErrorCode
+import org.example.auctioncommon.global.ErrorCode
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import java.time.LocalDateTime
@@ -81,7 +82,7 @@ class Auction(
             now.isAfter(this.endTime) ||
             now.isBefore(this.startTime)
         ) {
-            throw CustomException(ErrorCode.INVALID_AUCTION_TIME)
+            throw CustomException(AuctionErrorCode.INVALID_AUCTION_TIME)
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.Optional
 interface UserRepository : JpaRepository<User, Long> {
     fun existsByNickname(nickname: String): Boolean
 
-    fun findByEmail(email: String?): Optional<User>
+    fun findByEmail(email: String): User?
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT u FROM User u WHERE u.userId = :userId")

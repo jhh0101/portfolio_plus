@@ -10,9 +10,9 @@ data class AuctionResponse(
     val startPrice: Long,
     val currentPrice: Long,
     val status: AuctionStatus,
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @field:JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     val startTime: LocalDateTime,
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @field:JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     val endTime: LocalDateTime
 )
 
