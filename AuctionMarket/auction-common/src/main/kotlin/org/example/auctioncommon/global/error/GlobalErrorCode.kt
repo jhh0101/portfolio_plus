@@ -1,6 +1,9 @@
-package org.example.auctioncommon.global
+package org.example.auctioncommon.global.error
 
-enum class ErrorCode(val code: String, val message: String) {
+enum class GlobalErrorCode(
+    override val code: String,
+    override val message: String
+) : ErrorCode {
     // Common
     INVALID_INPUT_VALUE("C001", "잘못된 입력 값입니다"),
     INVALID_VERIFICATION_CODE("C400", "유효하지 않은 인증 코드입니다"),

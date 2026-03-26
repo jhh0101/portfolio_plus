@@ -1,6 +1,5 @@
 package org.example.auctioncommon.global.error
 
-import org.example.auctioncommon.global.ErrorCode
 import org.example.auctioncommon.global.response.ApiResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -30,7 +29,7 @@ class GlobalExceptionHandler {
         log.error("Validation error: {}", message)
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
-            .body(ApiResponse.error(ErrorCode.INVALID_INPUT_VALUE.code, message))
+            .body(ApiResponse.error(GlobalErrorCode.INVALID_INPUT_VALUE.code, message))
     }
 
     @ExceptionHandler(Exception::class)
@@ -40,8 +39,8 @@ class GlobalExceptionHandler {
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(
                 ApiResponse.error(
-                    ErrorCode.INTERNAL_SERVER_ERROR.code,
-                    ErrorCode.INTERNAL_SERVER_ERROR.message
+                    GlobalErrorCode.INTERNAL_SERVER_ERROR.code,
+                    GlobalErrorCode.INTERNAL_SERVER_ERROR.message
                 )
             )
     }

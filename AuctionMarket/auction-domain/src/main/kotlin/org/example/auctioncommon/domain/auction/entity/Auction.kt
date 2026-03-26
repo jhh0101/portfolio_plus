@@ -17,7 +17,6 @@ import org.example.auctioncommon.domain.auction.error.AuctionErrorCode
 import org.example.auctioncommon.domain.bid.entity.Bid
 import org.example.auctioncommon.domain.product.entity.Product
 import org.example.auctioncommon.global.error.CustomException
-import org.example.auctioncommon.global.ErrorCode
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import java.time.LocalDateTime
